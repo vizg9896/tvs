@@ -420,13 +420,12 @@ function ContactContent() {
                       <h3>Schedule a Showroom Test Ride</h3>
                       <p>Reserve your slot at Shree Balaji TVS for a personal experience</p>
                       <form onSubmit={handleBookingSubmit} style={{ marginTop: '20px' }}>
-                        <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
+                        <div className="form-row split">
                           <div className="form-group">
                             <label htmlFor="book-veh">Select Vehicle</label>
                             <select 
                               id="book-veh"
                               className="comp-select" 
-                              style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
                               value={bookingForm.vehicleId}
                               onChange={(e) => handleBookingVehicleChange(e.target.value)}
                             >
@@ -440,7 +439,6 @@ function ContactContent() {
                             <select
                               id="book-var"
                               className="comp-select"
-                              style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
                               value={bookingForm.variant}
                               onChange={(e) => setBookingForm({ ...bookingForm, variant: e.target.value })}
                             >
@@ -453,7 +451,7 @@ function ContactContent() {
                           </div>
                         </div>
 
-                        <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
+                        <div className="form-row split">
                           <div className="form-group">
                             <label htmlFor="book-name">Full Name *</label>
                             <input 
@@ -479,7 +477,7 @@ function ContactContent() {
                           </div>
                         </div>
 
-                        <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
+                        <div className="form-row split">
                           <div className="form-group">
                             <label htmlFor="book-date">Preferred Date *</label>
                             <input 
@@ -495,7 +493,6 @@ function ContactContent() {
                             <select 
                               id="book-slot"
                               className="comp-select" 
-                              style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
                               value={bookingForm.slot}
                               onChange={(e) => setBookingForm({ ...bookingForm, slot: e.target.value })}
                             >

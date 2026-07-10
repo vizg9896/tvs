@@ -182,7 +182,7 @@ export default function CatalogPage() {
                           <select
                             id={`variant-${vehicle.id}`}
                             className="comp-select"
-                            style={{ padding: '6px 10px', fontSize: '12px', height: '32px', marginTop: '4px', backgroundColor: 'var(--bg-primary)' }}
+                            style={{ padding: '6px 10px', fontSize: '12px', height: '32px', marginTop: '4px', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
                             value={activeVarName}
                             onChange={(e) => setSelectedVariants({ ...selectedVariants, [vehicle.id]: e.target.value })}
                           >
