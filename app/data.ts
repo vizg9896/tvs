@@ -551,7 +551,7 @@ export const VEHICLES: Vehicle[] = [
     id: 'tvs_x',
     title: 'TVS X Premium EV',
     subtitle: 'High-Performance Electric Crossover',
-    image: '/assets/tvs_x.jpg',
+    image: '/assets/tvs_x.png',
     price: 264617,
     speed: '105 km/h',
     power: '11.0 kW',

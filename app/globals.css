@@ -1032,10 +1032,7 @@ a {
     overflow: hidden;
 }
 
-/* Set white background for the white-background TVS iQube photo so it matches its container and doesn't get darkened */
-.card-img-wrap:has(img[src*="iqube"]) {
-    background-color: #ffffff !important;
-}
+
 
 .card-img-wrap img {
     max-height: 160px;
