@@ -40,6 +40,7 @@ const MILESTONES = [
   { year: '2022', title: 'Smart Connectivity Era', desc: 'Introduced advanced Bluetooth connected instrument consoles and tech-enabled diagnostics for next-generation motorcycles.' },
   { year: '2024', title: '1000+ Happy Customers', desc: 'Crossed the milestone of 1,000 satisfied vehicle owners across our motorcycle and scooter lineup.' },
   { year: '2025', title: 'Premium Display Expansion', desc: 'Showroom upgraded with interactive digital kiosks and advanced premium motorcycle display bays.' },
+  { year: '2026', title: 'Express Service Launch', desc: 'Introduced dedicated high-speed service bays and advanced tools, reducing routine maintenance wait times to under an hour.' },
 ];
 
 const TEAM_VALUES = [
