@@ -75,7 +75,7 @@ export const VEHICLES: Vehicle[] = [
     id: 'apache',
     title: 'TVS Apache RTR 310',
     subtitle: 'The Restless Naked Roadster',
-    image: '/assets/apache_310.jpg',
+    image: '/assets/apache_310.png',
     price: 225280,
     speed: '150 km/h',
     power: '35.6 PS',
