@@ -1042,7 +1042,8 @@ a {
 
 /* Make EV Scooters look larger and fit the catalog card image wrapper better */
 .card-img-wrap:has(img[src*="iqube"]) img,
-.card-img-wrap:has(img[src*="tvs_x"]) img {
+.card-img-wrap:has(img[src*="tvs_x"]) img,
+.card-img-wrap:has(img[src*="tvs_orbiter"]) img {
     max-height: 180px;
     transform: scale(1.15);
 }
@@ -1052,7 +1053,8 @@ a {
 }
 
 .vehicle-card:hover .card-img-wrap:has(img[src*="iqube"]) img,
-.vehicle-card:hover .card-img-wrap:has(img[src*="tvs_x"]) img {
+.vehicle-card:hover .card-img-wrap:has(img[src*="tvs_x"]) img,
+.vehicle-card:hover .card-img-wrap:has(img[src*="tvs_orbiter"]) img {
     transform: scale(1.2);
 }
 
