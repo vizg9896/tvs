@@ -220,7 +220,7 @@ export const VEHICLES: Vehicle[] = [
     id: 'apache_160',
     title: 'TVS Apache RTR 160',
     subtitle: 'Classic Streetfighter Racer',
-    image: '/assets/apache_160.jpg',
+    image: '/assets/apache_160.png',
     price: 109971,
     speed: '107 km/h',
     power: '16.04 PS',

@@ -44,17 +44,27 @@ export default function AdminPage() {
   const loadEnquiries = async () => {
     setLoading(true);
     try {
+      // Load from localStorage first (always)
+      const stored = localStorage.getItem('sb_tvs_enquiries');
+      const localEntries: Enquiry[] = stored ? JSON.parse(stored) : [];
+
+      // Try to load from Google Sheets and merge
       const res = await fetch('/api/admin/enquiries');
       const result = await res.json();
-      if (result.success && Array.isArray(result.data)) {
-        setEnquiries(result.data);
+
+      if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+        // Merge: Google Sheets + localStorage (avoid duplicates by id)
+        const sheetIds = new Set(result.data.map((e: Enquiry) => e.id));
+        const localOnly = localEntries.filter(e => !sheetIds.has(e.id));
+        setEnquiries([...result.data, ...localOnly]);
         setIsDemoMode(false);
+      } else if (localEntries.length > 0) {
+        // Google Sheets empty or not connected — show localStorage entries
+        setEnquiries(localEntries);
+        setIsDemoMode(!result.success);
       } else {
-        const stored = localStorage.getItem('sb_tvs_enquiries');
-        if (stored) {
-          setEnquiries(JSON.parse(stored));
-        }
-        setIsDemoMode(true);
+        setEnquiries([]);
+        setIsDemoMode(!result.success);
       }
     } catch (e) {
       const stored = localStorage.getItem('sb_tvs_enquiries');
@@ -66,6 +76,7 @@ export default function AdminPage() {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     loadEnquiries();
