@@ -9,7 +9,9 @@ import {
   Award, 
   Bike, 
   Check, 
-  AlertCircle
+  AlertCircle,
+  MessageSquare,
+  CheckCircle
 } from 'lucide-react';
 import { useVehicles } from '../../components/DataContext';
 
@@ -28,6 +30,11 @@ function ContactContent() {
   const vehicles = useVehicles();
   const [activeTab, setActiveTab] = useState<'inquiry' | 'booking'>(shouldBook ? 'booking' : 'inquiry');
   const [toasts, setToasts] = useState<Toast[]>([]);
+  
+  // Submission result states
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [lastSubmittedType, setLastSubmittedType] = useState<'booking' | 'inquiry' | null>(null);
+  const [whatsAppMessage, setWhatsAppMessage] = useState('');
 
   // Update tab if parameter changes
   useEffect(() => {
@@ -135,8 +142,10 @@ function ContactContent() {
       `📞 Phone: ${inquiryForm.phone}\n` +
       (inquiryForm.message ? `💬 Message: ${inquiryForm.message}\n` : '') +
       `\n_Submitted from website_`;
-    openWhatsApp(msg);
-    showToast(`Enquiry sent! You will be contacted shortly.`);
+    setWhatsAppMessage(msg);
+    setLastSubmittedType('inquiry');
+    setIsSubmitted(true);
+    showToast(`Enquiry sent! We will contact you shortly.`);
     setInquiryForm({ name: '', phone: '', message: '' });
   };
 
@@ -172,8 +181,10 @@ function ContactContent() {
       `📅 Date: ${bookingForm.date}\n` +
       `🕐 Slot: ${bookingForm.slot}\n` +
       `\n_Submitted from website_`;
-    openWhatsApp(msg);
-    showToast(`Booking confirmed! Redirecting to WhatsApp...`);
+    setWhatsAppMessage(msg);
+    setLastSubmittedType('booking');
+    setIsSubmitted(true);
+    showToast(`Booking saved! Thank you.`);
     setBookingForm({
       vehicleId: vehicles[0]?.id || '',
       variant: vehicles[0]?.variants[0]?.name || '',
@@ -295,164 +306,223 @@ function ContactContent() {
           {/* Contact / Booking Panel */}
           <div className="dealer-contact-form">
             <div className="form-container">
-              {/* Tab Switcher */}
-              <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--border-color)', paddingBottom: '16px', marginBottom: '20px' }}>
-                <button
-                  className={`btn ${activeTab === 'inquiry' ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ flex: 1, padding: '10px 14px', fontSize: '13px' }}
-                  onClick={() => setActiveTab('inquiry')}
-                >
-                  General Inquiry
-                </button>
-                <button
-                  className={`btn ${activeTab === 'booking' ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ flex: 1, padding: '10px 14px', fontSize: '13px' }}
-                  onClick={() => setActiveTab('booking')}
-                >
-                  Book Test Ride
-                </button>
-              </div>
-
-              {activeTab === 'inquiry' ? (
-                <>
-                  <h3>Drop Us an Inquiry</h3>
-                  <p>Have questions about pricing, finance, or spare parts? Send a query below.</p>
-                  <form onSubmit={handleInquirySubmit} style={{ marginTop: '20px' }}>
-                    <div className="form-group" style={{ marginBottom: '14px' }}>
-                      <label htmlFor="contact-name">Your Full Name</label>
-                      <input 
-                        type="text" 
-                        id="contact-name"
-                        placeholder="Enter name"
-                        value={inquiryForm.name}
-                        onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="form-group" style={{ marginBottom: '14px' }}>
-                      <label htmlFor="contact-phone">Phone Number</label>
-                      <input 
-                        type="tel" 
-                        id="contact-phone"
-                        placeholder="Enter mobile number"
-                        maxLength={10}
-                        value={inquiryForm.phone}
-                        onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="form-group" style={{ marginBottom: '20px' }}>
-                      <label htmlFor="contact-msg">Your Message</label>
-                      <textarea 
-                        id="contact-msg"
-                        rows={4} 
-                        placeholder="Write your questions about pricing, colors, or booking details..."
-                        value={inquiryForm.message}
-                        onChange={(e) => setInquiryForm({ ...inquiryForm, message: e.target.value })}
-                      ></textarea>
-                    </div>
-
-                    <button type="submit" className="btn btn-primary btn-large btn-block">
-                      Send Showroom Inquiry
+              {isSubmitted ? (
+                <div style={{ textAlign: 'center', padding: '30px 10px' }}>
+                  <div style={{ 
+                    width: '64px', 
+                    height: '64px', 
+                    borderRadius: '50%', 
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    margin: '0 auto 24px',
+                    color: '#10B981'
+                  }}>
+                    <CheckCircle size={36} />
+                  </div>
+                  <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '12px' }}>Thank You!</h3>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.6', marginBottom: '30px' }}>
+                    {lastSubmittedType === 'booking' 
+                      ? 'Your test ride request has been saved in our system. We will call you shortly to confirm your booking and coordinate your visit.'
+                      : 'Your inquiry has been successfully received. Our customer team will review it and get in touch with you shortly.'
+                    }
+                  </p>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <button
+                      onClick={() => openWhatsApp(whatsAppMessage)}
+                      className="btn btn-primary"
+                      style={{ 
+                        display: 'inline-flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        gap: '8px', 
+                        padding: '14px 24px', 
+                        fontSize: '14px',
+                        width: '100%',
+                        backgroundColor: '#25D366',
+                        borderColor: '#25D366',
+                        color: 'white'
+                      }}
+                    >
+                      <Phone size={16} /> Chat on WhatsApp (Optional)
                     </button>
-                  </form>
-                </>
+                    <button
+                      onClick={() => {
+                        setIsSubmitted(false);
+                        setLastSubmittedType(null);
+                        setWhatsAppMessage('');
+                      }}
+                      className="btn btn-secondary"
+                      style={{ padding: '12px 24px', fontSize: '13px', width: '100%' }}
+                    >
+                      Submit Another Request
+                    </button>
+                  </div>
+                </div>
               ) : (
                 <>
-                  <h3>Schedule a Showroom Test Ride</h3>
-                  <p>Reserve your slot at Shree Balaji TVS for a personal experience</p>
-                  <form onSubmit={handleBookingSubmit} style={{ marginTop: '20px' }}>
-                    <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
-                      <div className="form-group">
-                        <label htmlFor="book-veh">Select Vehicle</label>
-                        <select 
-                          id="book-veh"
-                          className="comp-select" 
-                          style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
-                          value={bookingForm.vehicleId}
-                          onChange={(e) => handleBookingVehicleChange(e.target.value)}
-                        >
-                          {vehicles.map((vehicle) => (
-                            <option key={vehicle.id} value={vehicle.id}>{vehicle.title}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="book-var">Select Variant</label>
-                        <select
-                          id="book-var"
-                          className="comp-select"
-                          style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
-                          value={bookingForm.variant}
-                          onChange={(e) => setBookingForm({ ...bookingForm, variant: e.target.value })}
-                        >
-                          {vehicles.find((v) => v.id === bookingForm.vehicleId)?.variants.map((v) => (
-                            <option key={v.name} value={v.name}>
-                              {v.name}
-                            </option>
-                          )) || <option value="">Standard Base</option>}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
-                      <div className="form-group">
-                        <label htmlFor="book-name">Full Name *</label>
-                        <input 
-                          type="text" 
-                          id="book-name" 
-                          placeholder="Enter name"
-                          required
-                          value={bookingForm.name}
-                          onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="book-phone">Mobile Number *</label>
-                        <input 
-                          type="tel" 
-                          id="book-phone" 
-                          placeholder="10-digit number"
-                          maxLength={10}
-                          required
-                          value={bookingForm.phone}
-                          onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
-                      <div className="form-group">
-                        <label htmlFor="book-date">Preferred Date *</label>
-                        <input 
-                          type="date" 
-                          id="book-date" 
-                          required
-                          value={bookingForm.date}
-                          onChange={(e) => setBookingForm({ ...bookingForm, date: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="book-slot">Preferred Slot</label>
-                        <select 
-                          id="book-slot"
-                          className="comp-select" 
-                          style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
-                          value={bookingForm.slot}
-                          onChange={(e) => setBookingForm({ ...bookingForm, slot: e.target.value })}
-                        >
-                          <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
-                          <option value="12:00 PM - 02:00 PM">12:00 PM - 02:00 PM</option>
-                          <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
-                          <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <button type="submit" className="btn btn-primary btn-large btn-block">
-                      Reserve Test Ride Slot
+                  {/* Tab Switcher */}
+                  <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--border-color)', paddingBottom: '16px', marginBottom: '20px' }}>
+                    <button
+                      className={`btn ${activeTab === 'inquiry' ? 'btn-primary' : 'btn-secondary'}`}
+                      style={{ flex: 1, padding: '10px 14px', fontSize: '13px' }}
+                      onClick={() => setActiveTab('inquiry')}
+                    >
+                      General Inquiry
                     </button>
-                  </form>
+                    <button
+                      className={`btn ${activeTab === 'booking' ? 'btn-primary' : 'btn-secondary'}`}
+                      style={{ flex: 1, padding: '10px 14px', fontSize: '13px' }}
+                      onClick={() => setActiveTab('booking')}
+                    >
+                      Book Test Ride
+                    </button>
+                  </div>
+
+                  {activeTab === 'inquiry' ? (
+                    <>
+                      <h3>Drop Us an Inquiry</h3>
+                      <p>Have questions about pricing, finance, or spare parts? Send a query below.</p>
+                      <form onSubmit={handleInquirySubmit} style={{ marginTop: '20px' }}>
+                        <div className="form-group" style={{ marginBottom: '14px' }}>
+                          <label htmlFor="contact-name">Your Full Name</label>
+                          <input 
+                            type="text" 
+                            id="contact-name"
+                            placeholder="Enter name"
+                            value={inquiryForm.name}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: '14px' }}>
+                          <label htmlFor="contact-phone">Phone Number</label>
+                          <input 
+                            type="tel" 
+                            id="contact-phone"
+                            placeholder="Enter mobile number"
+                            maxLength={10}
+                            value={inquiryForm.phone}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: '20px' }}>
+                          <label htmlFor="contact-msg">Your Message</label>
+                          <textarea 
+                            id="contact-msg"
+                            rows={4} 
+                            placeholder="Write your questions about pricing, colors, or booking details..."
+                            value={inquiryForm.message}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, message: e.target.value })}
+                          ></textarea>
+                        </div>
+
+                        <button type="submit" className="btn btn-primary btn-large btn-block" disabled={submitting}>
+                          {submitting ? 'Sending...' : 'Send Showroom Inquiry'}
+                        </button>
+                      </form>
+                    </>
+                  ) : (
+                    <>
+                      <h3>Schedule a Showroom Test Ride</h3>
+                      <p>Reserve your slot at Shree Balaji TVS for a personal experience</p>
+                      <form onSubmit={handleBookingSubmit} style={{ marginTop: '20px' }}>
+                        <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
+                          <div className="form-group">
+                            <label htmlFor="book-veh">Select Vehicle</label>
+                            <select 
+                              id="book-veh"
+                              className="comp-select" 
+                              style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
+                              value={bookingForm.vehicleId}
+                              onChange={(e) => handleBookingVehicleChange(e.target.value)}
+                            >
+                              {vehicles.map((vehicle) => (
+                                <option key={vehicle.id} value={vehicle.id}>{vehicle.title}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="book-var">Select Variant</label>
+                            <select
+                              id="book-var"
+                              className="comp-select"
+                              style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
+                              value={bookingForm.variant}
+                              onChange={(e) => setBookingForm({ ...bookingForm, variant: e.target.value })}
+                            >
+                              {vehicles.find((v) => v.id === bookingForm.vehicleId)?.variants.map((v) => (
+                                <option key={v.name} value={v.name}>
+                                  {v.name}
+                                </option>
+                              )) || <option value="">Standard Base</option>}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
+                          <div className="form-group">
+                            <label htmlFor="book-name">Full Name *</label>
+                            <input 
+                              type="text" 
+                              id="book-name" 
+                              placeholder="Enter name"
+                              required
+                              value={bookingForm.name}
+                              onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="book-phone">Mobile Number *</label>
+                            <input 
+                              type="tel" 
+                              id="book-phone" 
+                              placeholder="10-digit number"
+                              maxLength={10}
+                              required
+                              value={bookingForm.phone}
+                              onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="form-row split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
+                          <div className="form-group">
+                            <label htmlFor="book-date">Preferred Date *</label>
+                            <input 
+                              type="date" 
+                              id="book-date" 
+                              required
+                              value={bookingForm.date}
+                              onChange={(e) => setBookingForm({ ...bookingForm, date: e.target.value })}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="book-slot">Preferred Slot</label>
+                            <select 
+                              id="book-slot"
+                              className="comp-select" 
+                              style={{ padding: '10px 14px', fontSize: '13px', height: '42px', marginTop: '6px', backgroundColor: 'var(--bg-primary)' }}
+                              value={bookingForm.slot}
+                              onChange={(e) => setBookingForm({ ...bookingForm, slot: e.target.value })}
+                            >
+                              <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
+                              <option value="12:00 PM - 02:00 PM">12:00 PM - 02:00 PM</option>
+                              <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
+                              <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <button type="submit" className="btn btn-primary btn-large btn-block" disabled={submitting}>
+                          {submitting ? 'Reserving...' : 'Reserve Test Ride Slot'}
+                        </button>
+                      </form>
+                    </>
+                  )}
                 </>
               )}
             </div>
