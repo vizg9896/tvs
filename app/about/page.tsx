@@ -37,9 +37,9 @@ function AnimatedCounter({ end, duration = 1800, prefix = "", suffix = "", start
 const MILESTONES = [
   { year: '2019', title: 'Showroom Founded', desc: 'Shree Balaji TVS opened its doors in Chhuchhakwas, Jhajjar — bringing the full TVS range to rural Haryana.' },
   { year: '2020', title: 'Service Bay Launched', desc: 'Expanded to include a dedicated TVS-certified workshop with computer diagnostics equipment.' },
-  { year: '2022', title: 'EV Ready Showroom', desc: 'Became one of the first EV-ready TVS dealerships in Jhajjar district with iQube demo units and fast chargers.' },
-  { year: '2024', title: '1000+ Happy Customers', desc: 'Crossed the milestone of 1,000 satisfied vehicle owners across our motorcycle, scooter, and EV lineup.' },
-  { year: '2025', title: 'TVS X Premium Launch', desc: 'First in the district to showcase the TVS X electric crossover and Apache RTR 310 flagship models.' },
+  { year: '2022', title: 'TVS iQube Smart Launch', desc: 'Became one of the first TVS dealerships in Jhajjar district to launch connected smart scooters with demo units and chargers.' },
+  { year: '2024', title: '1000+ Happy Customers', desc: 'Crossed the milestone of 1,000 satisfied vehicle owners across our motorcycle and scooter lineup.' },
+  { year: '2025', title: 'TVS X Premium Launch', desc: 'First in the district to showcase the TVS X premium crossover and Apache RTR 310 flagship models.' },
 ];
 
 const TEAM_VALUES = [
