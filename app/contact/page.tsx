@@ -97,6 +97,18 @@ function ContactContent() {
     } catch (e) {}
   };
 
+  const sendToSheet = (entry: object) => {
+    const url = process.env.NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL;
+    if (!url) return;
+    // Use no-cors + text/plain to avoid preflight CORS and redirect issues
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(entry),
+      mode: 'no-cors',
+    }).catch(() => {});
+  };
+
   const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inquiryForm.name || !inquiryForm.phone) {
@@ -114,16 +126,7 @@ function ContactContent() {
       status: 'new'
     };
     saveLocal(entry);
-    // Send to Google Sheets via API
-    try {
-      await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(entry),
-      });
-    } catch (err) {
-      console.error('Failed to save to sheet:', err);
-    }
+    sendToSheet(entry);
     setSubmitting(false);
     const msg =
       `*New Enquiry — Shree Balaji TVS*\n\n` +
@@ -157,16 +160,7 @@ function ContactContent() {
       status: 'new'
     };
     saveLocal(entry);
-    // Send to Google Sheets via API
-    try {
-      await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(entry),
-      });
-    } catch (err) {
-      console.error('Failed to save to sheet:', err);
-    }
+    sendToSheet(entry);
     setSubmitting(false);
     const msg =
       `*🏍️ Test Ride Booking — Shree Balaji TVS*\n\n` +
