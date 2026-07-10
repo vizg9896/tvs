@@ -145,7 +145,6 @@ function ContactContent() {
     setWhatsAppMessage(msg);
     setLastSubmittedType('inquiry');
     setIsSubmitted(true);
-    showToast(`Enquiry sent! We will contact you shortly.`);
     setInquiryForm({ name: '', phone: '', message: '' });
   };
 
@@ -184,7 +183,6 @@ function ContactContent() {
     setWhatsAppMessage(msg);
     setLastSubmittedType('booking');
     setIsSubmitted(true);
-    showToast(`Booking saved! Thank you.`);
     setBookingForm({
       vehicleId: vehicles[0]?.id || '',
       variant: vehicles[0]?.variants[0]?.name || '',
