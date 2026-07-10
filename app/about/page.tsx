@@ -95,7 +95,20 @@ export default function AboutPage() {
                     </div>
                     <div>
                       <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-secondary)', marginBottom: '3px' }}>{item.label}</div>
-                      <div style={{ fontSize: '13px', color: 'var(--text-primary)', lineHeight: '1.4' }}>{item.val}</div>
+                      <div style={{ fontSize: '13px', color: 'var(--text-primary)', lineHeight: '1.4' }}>
+                        {item.label === 'Location' ? (
+                          <a 
+                            href="https://maps.app.goo.gl/bKa63nkPRHHgrDVu5" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{ color: 'var(--brand)', textDecoration: 'none', fontWeight: '600' }}
+                          >
+                            {item.val}
+                          </a>
+                        ) : (
+                          item.val
+                        )}
+                      </div>
                     </div>
                   </div>
                 );
@@ -208,7 +221,17 @@ export default function AboutPage() {
                 Visit Shree Balaji TVS Today
               </h2>
               <p style={{ fontSize: '15px', color: 'var(--text-secondary)', margin: 0, lineHeight: '1.6' }}>
-                Marot Road, Chhuchhakwas, Jhajjar, Haryana — Open 7 days a week
+                <a 
+                  href="https://maps.app.goo.gl/bKa63nkPRHHgrDVu5" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ color: 'inherit', textDecoration: 'none' }}
+                  onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                  onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+                >
+                  Marot Road, Chhuchhakwas, Jhajjar, Haryana
+                </a>
+                {" — Open 7 days a week"}
               </p>
             </div>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>

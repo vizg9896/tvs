@@ -221,7 +221,17 @@ function ContactContent() {
                 <div className="contact-icon"><MapPin /></div>
                 <div className="contact-text">
                   <h4>Showroom Address</h4>
-                  <p>Marot Road Chhuchhakwas, near Bright Mission School, Jhajjar, Haryana, 124106</p>
+                  <p>
+                    <a 
+                      href="https://maps.app.goo.gl/bKa63nkPRHHgrDVu5" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="call-link"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      Marot Road Chhuchhakwas, near Bright Mission School, Jhajjar, Haryana, 124106
+                    </a>
+                  </p>
                 </div>
               </div>
 

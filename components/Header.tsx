@@ -55,7 +55,16 @@ export default function Header() {
           <div className="top-info">
             <span className="top-location">
               <MapPin size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle', color: 'var(--brand)' }} />
-              Marot Road Chhuchhakwas, near Bright Mission School, Jhajjar, Haryana
+              <a 
+                href="https://maps.app.goo.gl/bKa63nkPRHHgrDVu5" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+              >
+                Marot Road Chhuchhakwas, near Bright Mission School, Jhajjar, Haryana
+              </a>
             </span>
             <span className="separator">|</span>
             <a href="tel:8059212212" className="top-phone">

@@ -75,7 +75,15 @@ export default function Footer() {
           <h4 className="footer-subheading">Contact Us</h4>
           <p>
             <MapPin size={16} /> 
-            Marot Road Chhuchhakwas, near Bright Mission School, Jhajjar, Haryana
+            <a 
+              href="https://maps.app.goo.gl/bKa63nkPRHHgrDVu5" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-map-link"
+              style={{ color: 'inherit', textDecoration: 'none' }}
+            >
+              Marot Road Chhuchhakwas, near Bright Mission School, Jhajjar, Haryana
+            </a>
           </p>
           <p>
             <Phone size={16} /> 
