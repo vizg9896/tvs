@@ -98,11 +98,13 @@ function ContactContent() {
   };
 
   const sendToSheet = (entry: object) => {
-    const url = 'https://script.google.com/macros/s/AKfycbzgsPdS6EPyS-Te4-Ym17USVlT5RN_PGSloB_eBmUo6mga0AOsrva4p-PG8i9Sy8YyI/exec';
-    // Use GET with data as URL param — most reliable way to call Apps Script
-    // (avoids POST redirect body loss and CORS preflight issues)
-    const params = new URLSearchParams({ action: 'save', data: JSON.stringify(entry) });
-    fetch(`${url}?${params.toString()}`, { method: 'GET', mode: 'no-cors' }).catch(() => {});
+    fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry),
+    }).catch((err) => {
+      console.error('Failed to save to sheet:', err);
+    });
   };
 
 
