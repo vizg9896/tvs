@@ -331,33 +331,15 @@ function ContactContent() {
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     <button
-                      onClick={() => openWhatsApp(whatsAppMessage)}
-                      className="btn btn-primary"
-                      style={{ 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '8px', 
-                        padding: '14px 24px', 
-                        fontSize: '14px',
-                        width: '100%',
-                        backgroundColor: '#25D366',
-                        borderColor: '#25D366',
-                        color: 'white'
-                      }}
-                    >
-                      <Phone size={16} /> Chat on WhatsApp (Optional)
-                    </button>
-                    <button
                       onClick={() => {
                         setIsSubmitted(false);
                         setLastSubmittedType(null);
                         setWhatsAppMessage('');
                       }}
-                      className="btn btn-secondary"
+                      className="btn btn-primary"
                       style={{ padding: '12px 24px', fontSize: '13px', width: '100%' }}
                     >
-                      Submit Another Request
+                      Done / Submit Another Request
                     </button>
                   </div>
                 </div>
