@@ -184,12 +184,28 @@ export default function CatalogPage() {
                           <span className="card-spec-lbl">Top Speed</span>
                         </div>
                         <div className="card-spec-item">
-                          <span className="card-spec-val">{vehicle.power}</span>
-                          <span className="card-spec-lbl">Power</span>
+                          <span className="card-spec-val">
+                            {vehicle.isEV ? (
+                              vehicle.id === 'iqube' ? '100 km' :
+                              vehicle.id === 'tvs_x' ? '140 km' :
+                              '158 km'
+                            ) : vehicle.power}
+                          </span>
+                          <span className="card-spec-lbl">
+                            {vehicle.isEV ? 'IDC Range' : 'Power'}
+                          </span>
                         </div>
                         <div className="card-spec-item">
-                          <span className="card-spec-val">{vehicle.acceleration}</span>
-                          <span className="card-spec-lbl">Accel</span>
+                          <span className="card-spec-val">
+                            {vehicle.isEV ? (
+                              vehicle.id === 'iqube' ? '3.04 kWh' :
+                              vehicle.id === 'tvs_x' ? '4.44 kWh' :
+                              '3.1 kWh'
+                            ) : vehicle.acceleration}
+                          </span>
+                          <span className="card-spec-lbl">
+                            {vehicle.isEV ? 'Battery' : 'Accel'}
+                          </span>
                         </div>
                       </div>
 

@@ -166,8 +166,22 @@ export default function BikeDetailPage() {
             }}>
               {[
                 { label: 'Top Speed', val: vehicle.speed },
-                { label: 'Power', val: vehicle.power },
-                { label: 'Acceleration', val: vehicle.acceleration }
+                { 
+                  label: vehicle.isEV ? 'IDC Range' : 'Power', 
+                  val: vehicle.isEV ? (
+                    vehicle.id === 'iqube' ? '100 km' :
+                    vehicle.id === 'tvs_x' ? '140 km' :
+                    '158 km'
+                  ) : vehicle.power 
+                },
+                { 
+                  label: vehicle.isEV ? 'Battery' : 'Acceleration', 
+                  val: vehicle.isEV ? (
+                    vehicle.id === 'iqube' ? '3.04 kWh' :
+                    vehicle.id === 'tvs_x' ? '4.44 kWh' :
+                    '3.1 kWh'
+                  ) : vehicle.acceleration 
+                }
               ].map(spec => (
                 <div key={spec.label} style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: '18px', fontWeight: '800', color: 'var(--brand)', fontFamily: "'Outfit', sans-serif" }}>
