@@ -434,6 +434,16 @@ a {
     gap: 12px;
 }
 
+.cta-calendar-icon {
+    margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+    .cta-calendar-icon {
+        margin-right: 0 !important;
+    }
+}
+
 .mobile-nav-toggle {
     display: none;
     background: none;

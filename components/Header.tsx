@@ -150,7 +150,7 @@ export default function Header() {
 
           <div className="header-cta">
             <Link href="/contact?book=true" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
-              <Calendar size={15} style={{ marginRight: '6px' }} /> <span>Book Test Ride</span>
+              <Calendar size={15} className="cta-calendar-icon" /> <span className="hide-mobile">Book Test Ride</span>
             </Link>
             <button 
               className="mobile-nav-toggle" 
