@@ -97,13 +97,14 @@ function ContactContent() {
     } catch (e) {}
   };
 
-  const handleInquirySubmit = (e: React.FormEvent) => {
+  const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inquiryForm.name || !inquiryForm.phone) {
       showToast('Please fill in your name and phone number.', 'info');
       return;
     }
-    saveLocal({
+    setSubmitting(true);
+    const entry = {
       id: Math.random().toString(36).substring(2, 12),
       type: 'inquiry',
       name: inquiryForm.name,
@@ -111,7 +112,19 @@ function ContactContent() {
       message: inquiryForm.message,
       submittedAt: new Date().toISOString(),
       status: 'new'
-    });
+    };
+    saveLocal(entry);
+    // Send to Google Sheets via API
+    try {
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry),
+      });
+    } catch (err) {
+      console.error('Failed to save to sheet:', err);
+    }
+    setSubmitting(false);
     const msg =
       `*New Enquiry — Shree Balaji TVS*\n\n` +
       `👤 Name: ${inquiryForm.name}\n` +
@@ -123,14 +136,15 @@ function ContactContent() {
     setInquiryForm({ name: '', phone: '', message: '' });
   };
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!bookingForm.name || !bookingForm.phone || !bookingForm.date) {
       showToast('Please fill in all required fields marked with *', 'info');
       return;
     }
+    setSubmitting(true);
     const chosenVehicle = vehicles.find((v) => v.id === bookingForm.vehicleId);
-    saveLocal({
+    const entry = {
       id: Math.random().toString(36).substring(2, 12),
       type: 'booking',
       name: bookingForm.name,
@@ -141,7 +155,19 @@ function ContactContent() {
       slot: bookingForm.slot,
       submittedAt: new Date().toISOString(),
       status: 'new'
-    });
+    };
+    saveLocal(entry);
+    // Send to Google Sheets via API
+    try {
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry),
+      });
+    } catch (err) {
+      console.error('Failed to save to sheet:', err);
+    }
+    setSubmitting(false);
     const msg =
       `*🏍️ Test Ride Booking — Shree Balaji TVS*\n\n` +
       `👤 Name: ${bookingForm.name}\n` +
