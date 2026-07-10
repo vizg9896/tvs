@@ -97,14 +97,16 @@ function ContactContent() {
     } catch (e) {}
   };
 
-  const sendToSheet = (entry: object) => {
-    fetch('/api/enquiry', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry),
-    }).catch((err) => {
+  const sendToSheet = async (entry: object) => {
+    try {
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry),
+      });
+    } catch (err) {
       console.error('Failed to save to sheet:', err);
-    });
+    }
   };
 
 
@@ -125,7 +127,7 @@ function ContactContent() {
       status: 'new'
     };
     saveLocal(entry);
-    sendToSheet(entry);
+    await sendToSheet(entry);
     setSubmitting(false);
     const msg =
       `*New Enquiry — Shree Balaji TVS*\n\n` +
@@ -159,7 +161,7 @@ function ContactContent() {
       status: 'new'
     };
     saveLocal(entry);
-    sendToSheet(entry);
+    await sendToSheet(entry);
     setSubmitting(false);
     const msg =
       `*🏍️ Test Ride Booking — Shree Balaji TVS*\n\n` +
