@@ -103,38 +103,23 @@ export default function CatalogPage() {
           </div>
 
           {/* Confused / Contact Callout Banner */}
-          <div style={{
-            background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
-            borderRadius: '16px',
-            padding: '24px 32px',
-            margin: '24px auto 32px',
-            maxWidth: '900px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '20px',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
-          }}>
-            <div style={{ flex: '1', minWidth: '280px' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text-primary)', margin: '0 0 6px' }}>Confused between choosing the perfect bike?</h3>
-              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: 0, lineHeight: '1.4' }}>
+          <div className="confused-banner">
+            <div className="confused-text">
+              <h3 className="confused-title">Confused between choosing the perfect bike?</h3>
+              <p className="confused-desc">
                 Don't worry! Our showroom experts at Shree Balaji TVS Chhuchhakwas are just one step away to guide you, or you can compare models side-by-side.
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <div className="confused-actions">
               <Link 
                 href="/compare" 
                 className="btn btn-secondary"
-                style={{ padding: '10px 18px', fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
               >
                 Compare Models
               </Link>
               <a 
                 href="tel:8059212212" 
                 className="btn btn-primary"
-                style={{ padding: '10px 18px', fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
               >
                 📞 Call: +91 80592 12212
               </a>
