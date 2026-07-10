@@ -17,14 +17,30 @@ async function saveToGoogleSheet(data: EnquiryPayload) {
   const scriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
   if (!scriptUrl) return { ok: false, reason: 'No Apps Script URL configured' };
 
-  const res = await fetch(scriptUrl, {
+  const payload = JSON.stringify(data);
+
+  // Google Apps Script returns a 302 redirect. Node.js fetch changes
+  // POST→GET on 302, so the body gets lost. We handle the redirect manually.
+  const first = await fetch(scriptUrl, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: payload,
+    redirect: 'manual',
   });
+
+  // Follow redirect as POST if needed
+  const targetUrl = first.headers.get('location') || scriptUrl;
+  const res = (first.status === 301 || first.status === 302 || first.status === 307 || first.status === 308)
+    ? await fetch(targetUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: payload,
+      })
+    : first;
 
   return { ok: res.ok, status: res.status };
 }
+
 
 // ── Helper: Send email via Resend ─────────────────────────────────────────────
 async function sendEmailViaResend(data: EnquiryPayload) {
