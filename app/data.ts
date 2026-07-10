@@ -607,33 +607,33 @@ export const VEHICLES: Vehicle[] = [
     ]
   },
   {
-    id: 'orbiter',
-    title: 'TVS Orbiter',
-    subtitle: 'Affordable Urban Electric Scooter',
-    image: '/assets/iqube.png',
-    price: 84500,
-    speed: '68 km/h',
-    power: 'BLDC Motor',
-    acceleration: '6.3s (0-40)',
+    id: 'iqube_st',
+    title: 'TVS iQube ST',
+    subtitle: 'Flagship Premium Smart EV',
+    image: '/assets/iqube_st.png',
+    price: 153000,
+    speed: '82 km/h',
+    power: '4.4 kW',
+    acceleration: '4.2s (0-40)',
     category: 'Scooter',
     isEV: true,
-    desc: 'The practical everyday EV. TVS Orbiter is designed for sensible urban commuting with a 34-litre boot, cruise control, hill-hold assist, Bluetooth connectivity, and up to 158 km range on a full charge.',
+    desc: 'The ultimate flagship family electric scooter. TVS iQube ST features a massive 5.1 kWh battery with up to 185 km range, 7-inch custom touchscreen console, Alexa voice sync, and ultra-premium gloss paint configurations.',
     colorways: [
-      { name: 'Cosmic Titanium', filter: 'hue-rotate(0deg) saturate(0) brightness(0.5)', color: '#555555' },
-      { name: 'Martian Copper', filter: 'hue-rotate(25deg) saturate(1.2) brightness(0.85)', color: '#8B4513' },
-      { name: 'Neon Sunburst', filter: 'hue-rotate(40deg) saturate(1.8) brightness(1)', color: '#FFC107' },
-      { name: 'Stratos Blue', filter: 'hue-rotate(210deg) saturate(1.3) brightness(0.85)', color: '#1565C0' }
+      { name: 'Copper Bronze', filter: 'hue-rotate(0deg) saturate(1) brightness(1)', color: '#B87333' },
+      { name: 'Titanium Grey', filter: 'hue-rotate(0deg) saturate(0) brightness(0.6)', color: '#707070' },
+      { name: 'Coral Sand', filter: 'hue-rotate(20deg) saturate(1.2) brightness(0.9)', color: '#E5A687' },
+      { name: 'Starlight Blue', filter: 'hue-rotate(210deg) saturate(1.2) brightness(0.85)', color: '#2C5E8A' }
     ],
     specs: {
-      'Engine & Transmission': 'BLDC Hub Motor with 1.8 kWh / 3.1 kWh battery pack options',
-      'Power & Torque': '68 km/h top speed & up to 158 km certified range',
-      'Suspension Setup': 'High-rigidity tubular framework with large 14-inch front wheel',
-      'Braking & Safety': 'Sync disc/drum brakes, Cruise control & hill-hold assist',
-      'Smart Dashboard & Console': 'Bluetooth, GPS navigation, geofencing, anti-theft & fall alerts'
+      'Engine & Transmission': 'Brushless DC Hub Motor (BLDC) with 3.4 kWh / 5.1 kWh high-density Lithium battery packs',
+      'Power & Torque': '82 km/h top speed & up to 185 km real-world range per charge',
+      'Suspension Setup': 'Telescopic front suspension & gas-charged hydraulic twin tube shock absorbers',
+      'Braking & Safety': '220mm Front disc brake with Regenerative Braking & Cruise Control',
+      'Smart Dashboard & Console': '7-inch color touchscreen display with Alexa voice assistant, custom screens, maps & document storage'
     },
     variants: [
-      { name: 'Orbiter V1 (1.8 kWh)', price: 84500, desc: '86 km range, ideal for short city commutes' },
-      { name: 'Orbiter V2 (3.1 kWh)', price: 105000, desc: '158 km certified range — perfect for longer daily routes' }
+      { name: 'iQube ST (3.4 kWh)', price: 153000, desc: '100 km range, 7-inch touchscreen digital console' },
+      { name: 'iQube ST (5.1 kWh)', price: 183000, desc: '5.1 kWh battery with premium 185 km range capability' }
     ]
   },
 
